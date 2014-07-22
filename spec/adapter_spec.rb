@@ -17,14 +17,13 @@ describe Wechat::Adapter do
     }]
   }
 
-  let (:client) { RestClient::Request = double }
   let (:app) { Wechat::Adapter::WechatAPI.new(appid, appsecret, base_url)}
   
   it "should be able to get access token" do
 
     access_token_response = double
     allow(access_token_response).to receive(:body).and_return({ :access_token => access_token, :expires_in => 7200}.to_json)
-    allow(client).to receive(:execute) { access_token_response }
+    allow(RestClient::Request).to receive(:execute) { access_token_response }
     expect(app.aquire_access_token).to eq(access_token)
   end
 
@@ -41,7 +40,7 @@ describe Wechat::Adapter do
     menu_retrieve_method = double
     expect(menu_retrieve_method).to receive(:invoke).exactly(10).times
 
-    allow(client).to receive(:execute) do |args|
+    allow(RestClient::Request).to receive(:execute) do |args|
       case args[:url]
       when "https://api.weixin.qq.com/cgi-bin/token" then
         expect(args[:method]).to eq(:get)
@@ -73,7 +72,7 @@ describe Wechat::Adapter do
     menu_delete_response = double
     allow(menu_delete_response).to receive(:body).and_return({:errcode => 0, :errmsg => "ok"}.to_json)
 
-    allow(client).to receive(:execute) do |args|
+    allow(RestClient::Request).to receive(:execute) do |args|
       case args[:url]
       when "https://api.weixin.qq.com/cgi-bin/token" then access_token_response
       when "https://api.weixin.qq.com/cgi-bin/menu/delete" then
@@ -94,7 +93,7 @@ describe Wechat::Adapter do
     menu_create_response = double
     allow(menu_create_response).to receive(:body).and_return({:errcode => 0, :errmsg => "ok"}.to_json)
 
-    allow(client).to receive(:execute) do |args|
+    allow(RestClient::Request).to receive(:execute) do |args|
       case args[:url]
       when "https://api.weixin.qq.com/cgi-bin/token" then access_token_response
       when "https://api.weixin.qq.com/cgi-bin/menu/create" then
