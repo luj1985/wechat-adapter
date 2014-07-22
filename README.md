@@ -22,7 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'wechat/adapter'
+
+appid = "wxb3fae34df644fbf7"
+appsecret = "d0aae6a89949c8c789068397f9e1c59c"
+api = WechatAPI.new(appid, appsecret)
+
+api.get 'menu/get'
+```
 
 ## Contributing
 
