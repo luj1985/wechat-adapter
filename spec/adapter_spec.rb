@@ -27,7 +27,7 @@ describe Wechat::Adapter do
     expect(app.aquire_access_token).to eq(access_token)
   end
 
-  it "should be able to get menu token" do
+  it "should be able to get menu" do
     access_token_response = double
     allow(access_token_response).to receive(:body).and_return({:access_token => access_token, :expires_in => 7200}.to_json)
     
